@@ -1,22 +1,26 @@
-import { Todo as TodoType, TodoId, ListOfTodos } from '../types/todo'
+import { useContext } from 'react'
+import { TodoContext } from '../context/todoContext'
+import { FiltersContext } from '../context/filtersContext'
 import { Todo } from './Todo'
+import { FilterValue } from '../types/todo'
 
-interface Props {
-  todos: ListOfTodos
-  completedTodo: ({ id, completed }: Pick<TodoType, 'id' | 'completed'>) => void
-  removeFromTodo: ({ id }: TodoId) => void
-}
+export const Todos = (): JSX.Element => {
+  const { todos } = useContext(TodoContext)
+  const { filterSelected } = useContext(FiltersContext)
 
-export const Todos: React.FC<Props> = ({ todos, completedTodo, removeFromTodo }) => {
+  const filteredTodos = todos.filter(todo => {
+    if (filterSelected === FilterValue.ACTIVE) return !todo.completed
+    if (filterSelected === FilterValue.COMPLETED) return todo.completed
+    return todos
+  })
+
   return (
     <ul className='todo-list'>
       {
-        todos.map(todo => (
+        filteredTodos.map(todo => (
           <Todo
             key={todo.id}
             todo={todo}
-            completedTodo={completedTodo}
-            removeFromTodo={removeFromTodo}
           />
         ))
       }

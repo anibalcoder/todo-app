@@ -1,12 +1,9 @@
-import { useState } from 'react'
-import { TodoTitle } from '../types/todo'
+import { useState, useContext } from 'react'
+import { TodoContext } from '../context/todoContext'
 
-interface Props {
-  addTodo: ({ title }: TodoTitle) => void
-}
-
-export const CreateTodo: React.FC<Props> = ({ addTodo }) => {
+export const CreateTodo = (): JSX.Element => {
   const [title, setTitle] = useState('')
+  const { addTodo } = useContext(TodoContext)
 
   function handleSubmitTodo (event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault()

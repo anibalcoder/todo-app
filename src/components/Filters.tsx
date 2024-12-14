@@ -1,11 +1,8 @@
+import { useContext } from 'react'
+import { FiltersContext } from '../context/filtersContext'
 import { FilterValue } from '../types/todo'
 
-interface Props {
-  filterSelected: FilterValue
-  filterChange: (filter: FilterValue) => void
-}
-
-const filter = {
+const filtersLink = {
   [FilterValue.ALL]: {
     text: 'Todos',
     href: `/?filter=${FilterValue.ALL}`
@@ -20,18 +17,20 @@ const filter = {
   }
 }
 
-export const Filters: React.FC<Props> = ({ filterSelected, filterChange }) => {
+export const Filters = (): JSX.Element => {
+  const { filterSelected, setFilterSelected } = useContext(FiltersContext)
+
   return (
     <ul className='filters'>
       {
-        Object.entries(filter).map((
+        Object.entries(filtersLink).map((
           [key, { text, href }]
         ) => (
           <li key={key}>
             <a
               onClick={(event) => {
                 event.preventDefault()
-                filterChange(key as FilterValue)
+                setFilterSelected(key as FilterValue)
               }}
               className={filterSelected === key ? 'selected' : ''}
               href={href}

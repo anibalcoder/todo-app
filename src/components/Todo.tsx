@@ -1,12 +1,13 @@
-import { Todo as TodoType, TodoId } from '../types/todo'
+import { useContext } from 'react'
+import { TodoContext } from '../context/todoContext'
+import { Todo as TodoType } from '../types/todo'
 
 interface Props {
   todo: TodoType
-  completedTodo: ({ id, completed }: Pick<TodoType, 'id' | 'completed'>) => void
-  removeFromTodo: ({ id }: TodoId) => void
 }
 
-export const Todo: React.FC<Props> = ({ todo, completedTodo, removeFromTodo }) => {
+export const Todo: React.FC<Props> = ({ todo }) => {
+  const { completedTodo, removeFromTodo } = useContext(TodoContext)
   const { id, title, completed } = todo
 
   return (

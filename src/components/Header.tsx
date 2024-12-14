@@ -1,11 +1,6 @@
 import { CreateTodo } from './CreateTodo'
-import { TodoTitle } from '../types/todo'
 
-interface Props {
-  addTodo: ({ title }: TodoTitle) => void
-}
-
-export const Header: React.FC<Props> = ({ addTodo }): JSX.Element => {
+export const Header = (): JSX.Element => {
   return (
     <header className='header'>
       <h1>
@@ -16,7 +11,7 @@ export const Header: React.FC<Props> = ({ addTodo }): JSX.Element => {
         />
       </h1>
 
-      <CreateTodo addTodo={addTodo} />
+      <CreateTodo />
     </header>
   )
 }
