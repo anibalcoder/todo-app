@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import { TodoContext } from '../context/todoContext'
 import { FiltersContext } from '../context/filtersContext'
 import { Todo } from './Todo'
+import { saveTodosToStorage } from '../storage/todo'
 import { FilterValue } from '../types/todo'
 
 export const Todos = (): JSX.Element => {
@@ -13,6 +14,8 @@ export const Todos = (): JSX.Element => {
     if (filterSelected === FilterValue.COMPLETED) return todo.completed
     return todos
   })
+
+  saveTodosToStorage(todos)
 
   return (
     <ul className='todo-list'>
