@@ -11,7 +11,10 @@ export const Todo: React.FC<Props> = ({ todo }) => {
   const { id, title, completed } = todo
 
   return (
-    <li className={completed ? 'completed' : ''}>
+    <li
+      data-testid='todo-item'
+      className={completed ? 'completed' : ''}
+    >
       <div className='view'>
         <input
           onChange={(event) => completedTodo({ id, completed: event.target.checked })}
@@ -21,7 +24,7 @@ export const Todo: React.FC<Props> = ({ todo }) => {
           checked={completed}
         />
 
-        <label htmlFor={id}>{title}</label>
+        <label data-testid='todo-title' htmlFor={id}>{title}</label>
 
         <button
           onClick={() => removeFromTodo({ id })}
